@@ -1,31 +1,89 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { TextInput, StyleSheet, View, Text, useWindowDimensions, Image } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { Ionicons } from 'react-native-vector-icons';
 
-function HomeScreen({ navigation }) {
+import Carousel from 'react-native-reanimated-carousel';
+
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: 'gray',
+    padding: 10,
+    gap: 10,
+
+    flex: 1,
+  },
+  borderShadow: {
+    borderRadius: 50,
+    shadowColor: 'gray',
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+    shadowOpacity: 5,
+    shadowRadius: 2,
+    elevation: 5,
+    borderTopwidth: 0,
+    borderLeftwidth: 0.2,
+    backgroundColor: '#F5F5F5',
+  },
+  imageCarousel: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+  }
+});
+
+export default function HomeScreen({ navigation }) {
+    const {width} = useWindowDimensions();
+    const dataCarousel = [
+      {
+        id: 1,
+        imageUrl : 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+      },
+      {
+        id: 2,
+        imageUrl : 'https://plus.unsplash.com/premium_photo-1678559033839-aaf50cb4c843?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnVybml0dXJlfGVufDB8fDB8fHww'
+      },
+      {
+        id: 3,
+        imageUrl : 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D'
+      },
+    ]
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        gap: 20,
-        margin: 20,
-      }}
-    >
-      <Text>HomeScreen</Text>
-      <TextInput label="Email" />
-      <Button
-        mode="contained"
-        onPress={() =>
-          navigation.navigate('Details', {
-            itemId: 50,
-          })
-        }
-      >
-        Button Paper
-      </Button>
-    </View>
-  );
+    <><View style={styles.container}>
+          <View style={[styles.searchBar, styles.borderShadow]}>
+              <Ionicons name="search" size={12} />
+              <TextInput placeholder="Mau cari barang apa" />
+          </View>
+          <IconButton icon="menu" />
+      </View><View style={{ flex: 1, alignItems: 'center' }}>
+              <Carousel
+                  loop
+                  width={width - 30}
+                  height={200}
+                  autoPlay
+                  data={dataCarousel}
+                  scrollAnimationDuration={1000}
+                  onSnapToItem={(index) => console.log('current index:', index)}
+                  renderItem={({ item }) => (
+                     <Image 
+                        style={styles.imageCarousel}
+                     source={{ 
+                        uri : item.imageUrl,
+                      }}
+                      />
+                  )} 
+                />
+          </View>
+        </>
+    );
 }
-
-export default HomeScreen;
