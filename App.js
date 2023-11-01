@@ -20,17 +20,45 @@
 //   },
 // });
 
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text} from 'react-native';
 import React from 'react';
+import CustomSafeArea from './src/components/CustomSafeArea';
 
 
 export default function App() {
   return (
-    <SafeAreaView>
-      <View>
-          <Text>Header</Text>
+    <CustomSafeArea>
+      <View
+        style={{ 
+          backgroundColor: "#F24C3D",
+          padding: 20,
+         }}
+      >
+          <Text
+            style={{ 
+              color: "#FFF",
+             }}
+          >
+            Header
+          </Text>
       </View>
-    </SafeAreaView>
+      <View
+        style={{ 
+          backgroundColor: "#22A699",
+          padding:20,
+          flex:5,
+         }}
+      >
+        <Text
+          style={{ 
+            color: "#FFF",
+           }}
+        >
+          Content
+        </Text>
+
+      </View>
+    </CustomSafeArea>
   );
 }
 
