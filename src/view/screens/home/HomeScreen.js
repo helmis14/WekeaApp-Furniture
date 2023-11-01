@@ -1,10 +1,11 @@
 import React from 'react';
 import { TextInput, StyleSheet, View, Text, useWindowDimensions, Image, ScrollView } from 'react-native';
-import { IconButton } from 'react-native-paper';
+import { Card, IconButton } from 'react-native-paper';
 import { Ionicons } from 'react-native-vector-icons';
 
 import Carousel from 'react-native-reanimated-carousel';
 
+const furnitureJpg = require('../../../../assets/furniture.jpeg')
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -51,6 +52,20 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
   },
+  cardContainer: { 
+    width : 150,
+    overflow: 'hidden',
+    marginRight: 15,
+  },
+   cardCoverImg: { 
+    borderRadius: 0,
+    height: 150,
+  },
+  cardTextLabel: {
+    fontSize: 16,
+    fontWeight: '500',
+  }
+
 });
 
 export default function HomeScreen({ navigation }) {
@@ -123,6 +138,47 @@ export default function HomeScreen({ navigation }) {
                 style={styles.iconButton}/>
             ))}
           </ScrollView>
+          </View>
+
+          {/* Product Component */}
+          <View>
+            <Text style={{ 
+                fontSize: 18,
+                fontWeight: "bold",
+             }}
+             >
+               Popular
+             </Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}
+            style={{ 
+                paddingVertical: 10,
+             }}
+            >
+              {Array.from(Array(4)).map(() => (
+                    <Card
+                    style={styles.cardContainer}
+                    >
+                        <Card.Cover 
+                            style={styles.cardCoverImg} 
+                            source={furnitureJpg}
+                            />
+                        <Card.Content 
+                        style={{ 
+                            padding: 10,
+                         }}
+                        >
+                            <Text 
+                              style={ 
+                                 styles.cardTextLabel
+                               }
+                            >
+                              Sofa
+                            </Text>
+                            <Text>Rp. 1000.000</Text>
+                        </Card.Content>
+                    </Card>
+                 ))}
+            </ScrollView>
           </View>
         </View>
     );
