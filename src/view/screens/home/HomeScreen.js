@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, StyleSheet, View, Text, useWindowDimensions, Image } from 'react-native';
+import { TextInput, StyleSheet, View, Text, useWindowDimensions, Image, ScrollView } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { Ionicons } from 'react-native-vector-icons';
 
@@ -7,8 +7,12 @@ import Carousel from 'react-native-reanimated-carousel';
 
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 15,
+  mainContainer: {
+    flex: 1,
+    padding: 10,
+    gap: 10,
+  },
+    searchBarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -39,7 +43,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 10,
-  }
+  },
+  iconButton: {
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    width: 100,
+    height: 50,
+  },
 });
 
 export default function HomeScreen({ navigation }) {
@@ -59,13 +70,18 @@ export default function HomeScreen({ navigation }) {
       },
     ]
   return (
-    <><View style={styles.container}>
+    <View style={styles.mainContainer}>
+        {/* SearchBar Component */}
+        <View style={styles.searchBarContainer}>
           <View style={[styles.searchBar, styles.borderShadow]}>
               <Ionicons name="search" size={12} />
               <TextInput placeholder="Mau cari barang apa" />
           </View>
           <IconButton icon="menu" />
-      </View><View style={{ flex: 1, alignItems: 'center' }}>
+      </View>
+      
+      {/* Carousel Component */}
+      <View style={{alignItems: 'center' }}>
               <Carousel
                   loop
                   width={width - 30}
@@ -84,6 +100,30 @@ export default function HomeScreen({ navigation }) {
                   )} 
                 />
           </View>
-        </>
+
+          {/* Category Component */}
+          <View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {Array.from(Array(8)).map(() => (
+                <IconButton 
+                icon={({color, size}) => (
+                <View style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                 }}
+                >
+                    <Ionicons name="home-outline" size={size} color={color} />
+                    <Text 
+                      style={{ 
+                        fontSize: 12,
+                     }}>Home
+                     </Text>
+                </View>
+                )} 
+                style={styles.iconButton}/>
+            ))}
+          </ScrollView>
+          </View>
+        </View>
     );
 }
