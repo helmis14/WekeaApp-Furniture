@@ -1,11 +1,22 @@
 import React from 'react';
-import { TextInput, StyleSheet, View, Text, useWindowDimensions, Image, ScrollView } from 'react-native';
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  Text,
+  useWindowDimensions,
+  Image,
+  ScrollView,
+  FlatList,
+  Pressable,
+} from 'react-native';
 import { Card, IconButton } from 'react-native-paper';
 import { Ionicons } from 'react-native-vector-icons';
 
 import Carousel from 'react-native-reanimated-carousel';
 
-const furnitureJpg = require('../../../../assets/furniture.jpeg')
+const furnitureJpg = require('../../../../assets/furniture.jpeg');
+const adsAsset = require('../../../../assets/ads2.jpg');
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -13,7 +24,7 @@ const styles = StyleSheet.create({
     padding: 10,
     gap: 10,
   },
-    searchBarContainer: {
+  searchBarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -52,134 +63,177 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
   },
-  cardContainer: { 
-    width : 150,
+  cardContainer: {
+    width: 150,
     overflow: 'hidden',
     marginRight: 15,
   },
-   cardCoverImg: { 
+  cardCoverImg: {
     borderRadius: 0,
     height: 150,
   },
   cardTextLabel: {
     fontSize: 16,
     fontWeight: '500',
-  }
+  },
+  pressableComponent: {
+    flex: 1,
+    height: 100,
+    margin: 5,
+  },
+  imagePressable: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
 
+    borderWidth: 0.4,
+    borderColor: 'grey',
+  },
 });
 
 export default function HomeScreen({ navigation }) {
-    const {width} = useWindowDimensions();
-    const dataCarousel = [
-      {
-        id: 1,
-        imageUrl : 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-      },
-      {
-        id: 2,
-        imageUrl : 'https://plus.unsplash.com/premium_photo-1678559033839-aaf50cb4c843?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnVybml0dXJlfGVufDB8fDB8fHww'
-      },
-      {
-        id: 3,
-        imageUrl : 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D'
-      },
-    ]
+  const { width } = useWindowDimensions();
+  const dataCarousel = [
+    {
+      id: 1,
+      imageUrl:
+        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+      id: 2,
+      imageUrl:
+        'https://plus.unsplash.com/premium_photo-1678559033839-aaf50cb4c843?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnVybml0dXJlfGVufDB8fDB8fHww',
+    },
+    {
+      id: 3,
+      imageUrl:
+        'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
+    },
+  ];
   return (
-    <View style={styles.mainContainer}>
+    <ScrollView>
+      <View style={styles.mainContainer}>
         {/* SearchBar Component */}
         <View style={styles.searchBarContainer}>
           <View style={[styles.searchBar, styles.borderShadow]}>
-              <Ionicons name="search" size={12} />
-              <TextInput placeholder="Mau cari barang apa" />
+            <Ionicons name="search" size={12} />
+            <TextInput placeholder="Mau cari barang apa" />
           </View>
           <IconButton icon="menu" />
-      </View>
-      
-      {/* Carousel Component */}
-      <View style={{alignItems: 'center' }}>
-              <Carousel
-                  loop
-                  width={width - 30}
-                  height={200}
-                  autoPlay
-                  data={dataCarousel}
-                  scrollAnimationDuration={1000}
-                  onSnapToItem={(index) => console.log('current index:', index)}
-                  renderItem={({ item }) => (
-                     <Image 
-                        style={styles.imageCarousel}
-                     source={{ 
-                        uri : item.imageUrl,
-                      }}
-                      />
-                  )} 
-                />
-          </View>
+        </View>
 
-          {/* Category Component */}
-          <View>
+        {/* Carousel Component */}
+        <View style={{ alignItems: 'center' }}>
+          <Carousel
+            loop
+            width={width - 30}
+            height={200}
+            autoPlay
+            data={dataCarousel}
+            scrollAnimationDuration={1000}
+            onSnapToItem={(index) => console.log('current index:', index)}
+            renderItem={({ item }) => (
+              <Image
+                style={styles.imageCarousel}
+                source={{
+                  uri: item.imageUrl,
+                }}
+              />
+            )}
+          />
+        </View>
+
+        {/* Category Component */}
+        <View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {Array.from(Array(8)).map(() => (
-                <IconButton 
-                icon={({color, size}) => (
-                <View style={{ 
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                 }}
-                >
+              <IconButton
+                icon={({ color, size }) => (
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
                     <Ionicons name="home-outline" size={size} color={color} />
-                    <Text 
-                      style={{ 
+                    <Text
+                      style={{
                         fontSize: 12,
-                     }}>Home
-                     </Text>
-                </View>
-                )} 
-                style={styles.iconButton}/>
+                      }}
+                    >
+                      Home
+                    </Text>
+                  </View>
+                )}
+                style={styles.iconButton}
+              />
             ))}
           </ScrollView>
-          </View>
-
-          {/* Product Component */}
-          <View>
-            <Text style={{ 
-                fontSize: 18,
-                fontWeight: "bold",
-             }}
-             >
-               Popular
-             </Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}
-            style={{ 
-                paddingVertical: 10,
-             }}
-            >
-              {Array.from(Array(4)).map(() => (
-                    <Card
-                    style={styles.cardContainer}
-                    >
-                        <Card.Cover 
-                            style={styles.cardCoverImg} 
-                            source={furnitureJpg}
-                            />
-                        <Card.Content 
-                        style={{ 
-                            padding: 10,
-                         }}
-                        >
-                            <Text 
-                              style={ 
-                                 styles.cardTextLabel
-                               }
-                            >
-                              Sofa
-                            </Text>
-                            <Text>Rp. 1000.000</Text>
-                        </Card.Content>
-                    </Card>
-                 ))}
-            </ScrollView>
-          </View>
         </View>
-    );
+
+        {/* Promotion Component */}
+        <View>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+            }}
+          >
+            Promosi Minggu Ini
+          </Text>
+          <FlatList
+            style={{
+              marginTop: 5,
+            }}
+            numColumns={2}
+            data={Array(4)}
+            renderItem={() => (
+              <Pressable style={styles.pressableComponent}>
+                <Image source={adsAsset} style={styles.imagePressable} />
+              </Pressable>
+            )}
+          />
+        </View>
+
+        {/* Product Component */}
+        <View>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+            }}
+          >
+            Popular
+          </Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{
+              paddingVertical: 10,
+            }}
+          >
+            {Array.from(Array(4)).map(() => (
+              <Card style={styles.cardContainer}>
+                <Card.Cover style={styles.cardCoverImg} source={furnitureJpg} />
+                <Card.Content
+                  style={{
+                    padding: 10,
+                  }}
+                >
+                  <Text style={styles.cardTextLabel}>Sofa</Text>
+                  <Text>Rp. 1000.000</Text>
+                </Card.Content>
+              </Card>
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: '15%',
+        }}
+      />
+    </ScrollView>
+  );
 }
