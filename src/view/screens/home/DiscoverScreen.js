@@ -7,7 +7,7 @@ import {
   Platform,
   Animated,
 } from 'react-native';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import MapView, { Marker, Polygon, Polyline } from 'react-native-maps';
 import Carousel from 'react-native-reanimated-carousel';
 import { Card, IconButton, Text } from 'react-native-paper';
@@ -21,6 +21,9 @@ export default function DiscoverScreen() {
   const mapRef = useRef(null);
   const scrollCarouselRef = useRef(null);
   const mapAnimation = new Animated.Value(0);
+  const carouselAnimation = new Animated.Value(0);
+  const carouselAnimationRef = useRef(carouselAnimation);
+  const [isShowCarousel, setIsShowCarousel] = useState(true);
 
   const region = {
     latitude: 37.78825,
@@ -81,6 +84,21 @@ export default function DiscoverScreen() {
     return { scale };
   });
 
+  const carouselInterpolate = carouselAnimationRef.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -1000],
+    extrapolate: 'clamp',
+  });
+
+  const onHideCarousel = () => {
+    setIsShowCarousel((prev) => !prev);
+    Animated.timing(carouselAnimationRef.current, {
+      toValue: isShowCarousel ? 1 : 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <MapView
@@ -132,7 +150,31 @@ export default function DiscoverScreen() {
         ))}
       </MapView>
 
-      <View style={{ alignItems: 'center' }}>
+      <View
+        style={{
+          alignItems: 'flex-end',
+        }}
+      >
+        <IconButton
+          style={{
+            backgroundColor: '#fff',
+          }}
+          icon={isShowCarousel ? 'close' : 'menu'}
+          mode="contained"
+          onPress={onHideCarousel}
+        />
+      </View>
+
+      <Animated.View
+        style={{
+          alignItems: 'center',
+          transform: [
+            {
+              translateY: carouselInterpolate,
+            },
+          ],
+        }}
+      >
         <Carousel
           ref={scrollCarouselRef}
           loop
@@ -203,7 +245,7 @@ export default function DiscoverScreen() {
             </Card>
           )}
         />
-      </View>
+      </Animated.View>
     </View>
   );
 }
