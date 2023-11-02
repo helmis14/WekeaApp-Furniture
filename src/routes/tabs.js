@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from 'react-native-vector-icons';
 import HomeScreen from '../view/screens/home/HomeScreen';
 import FavoriteScreen from '../view/screens/home/FavoriteScreen';
+import DiscoverScreen from '../view/screens/home/DiscoverScreen';
 
 const Tabs = createBottomTabNavigator();
 
@@ -35,6 +36,21 @@ export default function HomeTabs() {
         name="Home"
         component={HomeScreen}
       />
+
+      <Tabs.Screen
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? 'map' : 'map-outline'}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+        name="Discover"
+        component={DiscoverScreen}
+      />
+
       <Tabs.Screen
         options={{
           tabBarIcon: ({ focused, color, size }) => (
