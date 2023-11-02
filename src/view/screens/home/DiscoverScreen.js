@@ -5,15 +5,29 @@ import {
   useWindowDimensions,
   Linking,
   Platform,
+  Animated,
 } from 'react-native';
-import React from 'react';
-import MapView, { Polygon, Polyline } from 'react-native-maps';
+import React, { useRef } from 'react';
+import MapView, { Marker, Polygon, Polyline } from 'react-native-maps';
 import Carousel from 'react-native-reanimated-carousel';
 import { Card, IconButton, Text } from 'react-native-paper';
 import { Ionicons } from 'react-native-vector-icons';
 
+const storeMarker = require('../../../../assets/store.png');
+
 export default function DiscoverScreen() {
   const { width } = useWindowDimensions();
+
+  const mapRef = useRef(null);
+  const scrollCarouselRef = useRef(null);
+  const mapAnimation = new Animated.Value(0);
+
+  const region = {
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  };
 
   const markers = [
     {
@@ -42,15 +56,36 @@ export default function DiscoverScreen() {
     },
   ];
 
+  const onPressMarker = (mapData) => {
+    const markerId = mapData._targetInst.return.key;
+
+    scrollCarouselRef.current.scrollTo({
+      index: +markerId,
+      animated: true,
+    });
+  };
+
+  const interpolations = markers.map((_, index) => {
+    const inputRange = [
+      (index - 1) * width,
+      index * width,
+      (index + 1) * width,
+    ];
+
+    const scale = mapAnimation.interpolate({
+      inputRange,
+      outputRange: [1, 1.5, 1],
+      extrapolate: 'clamp',
+    });
+
+    return { scale };
+  });
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <MapView
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        ref={mapRef}
+        initialRegion={region}
         style={StyleSheet.absoluteFillObject}
       >
         {/* <Polyline
@@ -77,20 +112,50 @@ export default function DiscoverScreen() {
           strokeWidth={1}
           fillColor="#00f"
         /> */}
+        {markers.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={marker.coordinate}
+            onPress={(e) => onPressMarker(e)}
+          >
+            <Animated.Image
+              source={storeMarker}
+              style={{
+                transform: [
+                  {
+                    scale: interpolations[index].scale,
+                  },
+                ],
+              }}
+            />
+          </Marker>
+        ))}
       </MapView>
 
       <View style={{ alignItems: 'center' }}>
         <Carousel
+          ref={scrollCarouselRef}
           loop
           style={{
             top: 20,
           }}
           width={width - 30}
           height={250}
-          autoPlay
+          autoPlay={false}
           data={markers}
+          onProgressChange={(progress) => {
+            mapAnimation.setValue(Math.abs(progress));
+          }}
           scrollAnimationDuration={1000}
-          onSnapToItem={(index) => console.log('current index:', index)}
+          onSnapToItem={(index) => {
+            const { coordinate } = markers[index];
+
+            mapRef.current.animateToRegion({
+              ...coordinate,
+              latitudeDelta: region.latitudeDelta,
+              longitudeDelta: region.longitudeDelta,
+            });
+          }}
           renderItem={({ item }) => (
             <Card
               style={{
@@ -129,7 +194,7 @@ export default function DiscoverScreen() {
                     Linking.openURL(
                       Platform.OS === 'ios'
                         ? `maps://app?daddr=${item.coordinate.latitude},${item.coordinate.longitude}`
-                        : `google.navigation:q=${item.coordinate.latitude},${item.coordinate.longitude}`,
+                        : `google.navigation:q=${item.coordinate.latitude},${item.coordinate.longitude}`
                     )
                   }
                   icon={() => <Ionicons size={24} name="locate" />}

@@ -35,7 +35,7 @@ export default function CustomCarousel() {
         loop
         width={width - 30}
         height={200}
-        autoPlay
+        autoPlay={false}
         data={dataCarousel}
         scrollAnimationDuration={1000}
         onSnapToItem={(index) => console.log('current index:', index)}
