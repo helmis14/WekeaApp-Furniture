@@ -86,7 +86,7 @@ export default function DiscoverScreen() {
 
   const carouselInterpolate = carouselAnimationRef.current.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -1000],
+    outputRange: [0, 1000],
     extrapolate: 'clamp',
   });
 
@@ -94,7 +94,7 @@ export default function DiscoverScreen() {
     setIsShowCarousel((prev) => !prev);
     Animated.timing(carouselAnimationRef.current, {
       toValue: isShowCarousel ? 1 : 0,
-      duration: 500,
+      duration: 3000,
       useNativeDriver: true,
     }).start();
   };
@@ -106,30 +106,6 @@ export default function DiscoverScreen() {
         initialRegion={region}
         style={StyleSheet.absoluteFillObject}
       >
-        {/* <Polyline
-          coordinates={[
-            { latitude: 37.8025259, longitude: -122.4351431 },
-            { latitude: 37.7896386, longitude: -122.421646 },
-            { latitude: 37.7665248, longitude: -122.4161628 },
-            { latitude: 37.7734153, longitude: -122.4577787 },
-            { latitude: 37.7948605, longitude: -122.4596065 },
-            { latitude: 37.8025259, longitude: -122.4351431 },
-          ]}
-          strokeColors={['#000', '#f00', '#f0f']}
-          strokeWidth={1}
-        /> */}
-        {/* <Polygon
-          coordinates={[
-            { latitude: 37.8025259, longitude: -122.4351431 },
-            { latitude: 37.7896386, longitude: -122.421646 },
-            { latitude: 37.7665248, longitude: -122.4161628 },
-            { latitude: 37.7734153, longitude: -122.4577787 },
-            { latitude: 37.7948605, longitude: -122.4596065 },
-            { latitude: 37.8025259, longitude: -122.4351431 },
-          ]}
-          strokeWidth={1}
-          fillColor="#00f"
-        /> */}
         {markers.map((marker, index) => (
           <Marker
             key={index}
@@ -248,4 +224,33 @@ export default function DiscoverScreen() {
       </Animated.View>
     </View>
   );
+}
+
+{
+  /* <Polyline
+          coordinates={[
+            { latitude: 37.8025259, longitude: -122.4351431 },
+            { latitude: 37.7896386, longitude: -122.421646 },
+            { latitude: 37.7665248, longitude: -122.4161628 },
+            { latitude: 37.7734153, longitude: -122.4577787 },
+            { latitude: 37.7948605, longitude: -122.4596065 },
+            { latitude: 37.8025259, longitude: -122.4351431 },
+          ]}
+          strokeColors={['#000', '#f00', '#f0f']}
+          strokeWidth={1}
+        /> */
+}
+{
+  /* <Polygon
+          coordinates={[
+            { latitude: 37.8025259, longitude: -122.4351431 },
+            { latitude: 37.7896386, longitude: -122.421646 },
+            { latitude: 37.7665248, longitude: -122.4161628 },
+            { latitude: 37.7734153, longitude: -122.4577787 },
+            { latitude: 37.7948605, longitude: -122.4596065 },
+            { latitude: 37.8025259, longitude: -122.4351431 },
+          ]}
+          strokeWidth={1}
+          fillColor="#00f"
+        /> */
 }
