@@ -1,17 +1,8 @@
-import {
-  View,
-  StyleSheet,
-  Image,
-  useWindowDimensions,
-  Linking,
-  Platform,
-  Animated,
-} from 'react-native';
+import { View, StyleSheet, useWindowDimensions, Animated } from 'react-native';
 import React, { useRef, useState } from 'react';
-import MapView, { Marker, Polygon, Polyline } from 'react-native-maps';
-import Carousel from 'react-native-reanimated-carousel';
-import { Card, IconButton, Text } from 'react-native-paper';
-import { Ionicons } from 'react-native-vector-icons';
+import CarouselDiscover from '../../../components/Discover/CarouselDiscover';
+import TogglerButton from '../../../components/Discover/TogglerButton';
+import MapComponent from '../../../components/Discover/MapComponent';
 
 const storeMarker = require('../../../../assets/store.png');
 
@@ -86,60 +77,30 @@ export default function DiscoverScreen() {
 
   const carouselInterpolate = carouselAnimationRef.current.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 1000],
+    outputRange: [0, -1000],
     extrapolate: 'clamp',
   });
 
-  const onHideCarousel = () => {
+  const OnToggler = () => {
     setIsShowCarousel((prev) => !prev);
     Animated.timing(carouselAnimationRef.current, {
       toValue: isShowCarousel ? 1 : 0,
-      duration: 3000,
+      duration: 1000,
       useNativeDriver: true,
     }).start();
   };
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
-      <MapView
-        ref={mapRef}
-        initialRegion={region}
-        style={StyleSheet.absoluteFillObject}
-      >
-        {markers.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={marker.coordinate}
-            onPress={(e) => onPressMarker(e)}
-          >
-            <Animated.Image
-              source={storeMarker}
-              style={{
-                transform: [
-                  {
-                    scale: interpolations[index].scale,
-                  },
-                ],
-              }}
-            />
-          </Marker>
-        ))}
-      </MapView>
-
-      <View
-        style={{
-          alignItems: 'flex-end',
-        }}
-      >
-        <IconButton
-          style={{
-            backgroundColor: '#fff',
-          }}
-          icon={isShowCarousel ? 'close' : 'menu'}
-          mode="contained"
-          onPress={onHideCarousel}
-        />
-      </View>
+      <MapComponent
+        interpolations={interpolations}
+        mapRef={mapRef}
+        storeMarker={storeMarker}
+        markers={markers}
+        onPressMarker={onPressMarker}
+        region={region}
+      />
+      <TogglerButton isShowCarousel={isShowCarousel} OnToggler={OnToggler} />
 
       <Animated.View
         style={{
@@ -151,106 +112,15 @@ export default function DiscoverScreen() {
           ],
         }}
       >
-        <Carousel
-          ref={scrollCarouselRef}
-          loop
-          style={{
-            top: 20,
-          }}
-          width={width - 30}
-          height={250}
-          autoPlay={false}
-          data={markers}
-          onProgressChange={(progress) => {
-            mapAnimation.setValue(Math.abs(progress));
-          }}
-          scrollAnimationDuration={1000}
-          onSnapToItem={(index) => {
-            const { coordinate } = markers[index];
-
-            mapRef.current.animateToRegion({
-              ...coordinate,
-              latitudeDelta: region.latitudeDelta,
-              longitudeDelta: region.longitudeDelta,
-            });
-          }}
-          renderItem={({ item }) => (
-            <Card
-              style={{
-                overflow: 'hidden',
-              }}
-            >
-              <Card.Cover
-                source={{ uri: item.image }}
-                style={{
-                  height: 150,
-                  borderRadius: 0,
-                }}
-              />
-              <Card.Content
-                style={{
-                  padding: 16,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '500',
-                    }}
-                  >
-                    {item.title}
-                  </Text>
-                  <Text>{item.address}</Text>
-                </View>
-                <IconButton
-                  mode="outlined"
-                  onPress={() =>
-                    Linking.openURL(
-                      Platform.OS === 'ios'
-                        ? `maps://app?daddr=${item.coordinate.latitude},${item.coordinate.longitude}`
-                        : `google.navigation:q=${item.coordinate.latitude},${item.coordinate.longitude}`
-                    )
-                  }
-                  icon={() => <Ionicons size={24} name="locate" />}
-                />
-              </Card.Content>
-            </Card>
-          )}
+        <CarouselDiscover
+          mapAnimation={mapAnimation}
+          mapRef={mapRef}
+          markers={markers}
+          region={region}
+          scrollCarouselRef={scrollCarouselRef}
+          width={width}
         />
       </Animated.View>
     </View>
   );
-}
-
-{
-  /* <Polyline
-          coordinates={[
-            { latitude: 37.8025259, longitude: -122.4351431 },
-            { latitude: 37.7896386, longitude: -122.421646 },
-            { latitude: 37.7665248, longitude: -122.4161628 },
-            { latitude: 37.7734153, longitude: -122.4577787 },
-            { latitude: 37.7948605, longitude: -122.4596065 },
-            { latitude: 37.8025259, longitude: -122.4351431 },
-          ]}
-          strokeColors={['#000', '#f00', '#f0f']}
-          strokeWidth={1}
-        /> */
-}
-{
-  /* <Polygon
-          coordinates={[
-            { latitude: 37.8025259, longitude: -122.4351431 },
-            { latitude: 37.7896386, longitude: -122.421646 },
-            { latitude: 37.7665248, longitude: -122.4161628 },
-            { latitude: 37.7734153, longitude: -122.4577787 },
-            { latitude: 37.7948605, longitude: -122.4596065 },
-            { latitude: 37.8025259, longitude: -122.4351431 },
-          ]}
-          strokeWidth={1}
-          fillColor="#00f"
-        /> */
 }
