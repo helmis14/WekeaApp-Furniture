@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import React, { useMemo } from 'react';
 import GlobalStyles from '../../../styles/GlobalStyles';
-import { FlatList, Swipeable } from 'react-native-gesture-handler';
-import { Button, IconButton, List } from 'react-native-paper';
+import { FlatList } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useState } from 'react';
-import Animated, { SlideOutLeft } from 'react-native-reanimated';
+import SwipableCart from '../../../components/Cart/SwipableCart';
 
 const styles = StyleSheet.create({
   cartItem: {
@@ -93,21 +93,13 @@ export default function CartScreen() {
   };
 
   const renderItem = ({ item, index }) => (
-    <Animated.View exiting={SlideOutLeft.duration(1000)}>
-      <Swipeable
-        renderRightActions={() => (
-          <View style={styles.cartTrashButton}>
-            <IconButton
-              icon="delete"
-              size={24}
-              onPress={() => handleDelete(item.id)}
-            />
-          </View>
-        )}
-      >
-        <CartItem item={item} index={index} data={data} setData={setData} />
-      </Swipeable>
-    </Animated.View>
+    <SwipableCart
+      data={data}
+      setData={setData}
+      item={item}
+      index={index}
+      handleDelete={handleDelete}
+    />
   );
 
   return (
@@ -136,66 +128,5 @@ export default function CartScreen() {
         </Button>
       </View>
     </View>
-  );
-}
-
-function CartItem({ item, index, data, setData }) {
-  return (
-    <List.Item
-      style={styles.cartItem}
-      left={() => (
-        <View style={styles.cartItemLeft}>
-          <Image source={{ uri: item.image }} style={styles.cartItemImg} />
-          <View>
-            <Text style={GlobalStyles.mediumFont}>{item.name}</Text>
-            <Text style={GlobalStyles.regularFont}>{`$ ${item.price}`}</Text>
-          </View>
-        </View>
-      )}
-      right={() => {
-        return (
-          <View style={styles.cartItemRight}>
-            <IconButton
-              icon="plus"
-              size={14}
-              onPress={() =>
-                setData(
-                  data.map((prev, i) => {
-                    if (i === index) {
-                      return {
-                        ...prev,
-                        quantity: prev.quantity + 1,
-                      };
-                    }
-
-                    return prev;
-                  })
-                )
-              }
-            />
-            <Text>{item.quantity}</Text>
-            <IconButton
-              icon="minus"
-              size={14}
-              disabled={data[index].quantity === 1}
-              onPress={() =>
-                setData(
-                  data.map((prev, i) => {
-                    if (i === index) {
-                      return {
-                        ...prev,
-                        quantity: prev.quantity - 1,
-                      };
-                    }
-
-                    return prev;
-                  })
-                )
-              }
-            />
-          </View>
-        );
-      }}
-    ></List.Item>
   );
 }
