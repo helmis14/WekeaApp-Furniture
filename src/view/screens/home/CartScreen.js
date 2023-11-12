@@ -124,7 +124,11 @@ export default function CartScreen() {
 
       <View style={styles.checkoutBtnContainer}>
         <Button style={styles.checkoutButton} mode="contained">
-          Checkout&nbsp;${totalPrice}
+          Checkout&nbsp;
+          {new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+          }).format(totalPrice)}
         </Button>
       </View>
     </View>

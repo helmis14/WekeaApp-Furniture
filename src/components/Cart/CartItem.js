@@ -56,7 +56,12 @@ function CartItem({ item, index, data, setData }) {
           <Image source={{ uri: item.image }} style={styles.cartItemImg} />
           <View>
             <Text style={GlobalStyles.mediumFont}>{item.name}</Text>
-            <Text style={GlobalStyles.regularFont}>{`$ ${item.price}`}</Text>
+            <Text style={GlobalStyles.regularFont}>
+              {new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+              }).format(item.price)}
+            </Text>
           </View>
         </View>
       )}
