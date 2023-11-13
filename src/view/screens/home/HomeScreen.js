@@ -1,36 +1,23 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import SearchBar from '../../../components/Home/SearchBar';
 import CustomCarousel from '../../../components/Home/CustomCarousel';
 import Category from '../../../components/Home/Category';
 import AdsPromotion from '../../../components/Home/AdsPromotion';
 import Popular from '../../../components/Home/Popular';
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    padding: 10,
-    gap: 15,
-  },
-});
+import Container from '../../../components/Global/Container';
 
 export default function HomeScreen({ navigation }) {
   return (
     <ScrollView>
-      <View style={styles.mainContainer}>
+      <Container>
         <SearchBar isHashButton />
         <CustomCarousel />
         <Category />
         <AdsPromotion />
         <Popular />
-      </View>
-
-      <View
-        style={{
-          marginTop: '15%',
-        }}
-      />
+      </Container>
     </ScrollView>
   );
 }

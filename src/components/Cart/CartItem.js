@@ -5,8 +5,7 @@ import GlobalStyles from '../../styles/GlobalStyles';
 
 const styles = StyleSheet.create({
   cartItem: {
-    marginHorizontal: 20,
-    backgroundColor: '#ECECED',
+    backgroundColor: '#FFFF',
     padding: 10,
     borderRadius: 10,
     marginVertical: 10,

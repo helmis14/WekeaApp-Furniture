@@ -1,8 +1,8 @@
-import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import TransactionContainer from '../../../components/Transaction/TransactionContainer';
 import SearchBar from '../../../components/Home/SearchBar';
+import Container from '../../../components/Global/Container';
 
 const data = [
   {
@@ -56,28 +56,16 @@ const data = [
   },
 ];
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  searchbar: {
-    backgroundColor: 'white',
-  },
-});
-
 export default function TransactionScreen() {
   return (
-    <View style={styles.container}>
+    <Container>
       <SearchBar />
-
       <GestureHandlerRootView>
         <FlatList
-          style={{ marginTop: 20 }}
           data={data}
           renderItem={({ item }) => <TransactionContainer data={item} />}
         />
       </GestureHandlerRootView>
-    </View>
+    </Container>
   );
 }

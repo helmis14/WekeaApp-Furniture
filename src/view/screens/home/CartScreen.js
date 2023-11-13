@@ -6,6 +6,7 @@ import { Button } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import SwipableCart from '../../../components/Cart/SwipableCart';
+import Container from '../../../components/Global/Container';
 
 const styles = StyleSheet.create({
   cartItem: {
@@ -103,16 +104,10 @@ export default function CartScreen() {
   );
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
+    <Container>
       <Text
         style={{
           ...GlobalStyles.largeFont,
-          marginVertical: 10,
-          marginHorizontal: 20,
         }}
       >
         Cart
@@ -131,6 +126,6 @@ export default function CartScreen() {
           }).format(totalPrice)}
         </Button>
       </View>
-    </View>
+    </Container>
   );
 }
