@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { Divider, Searchbar } from 'react-native-paper';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import TransactionContainer from '../../../components/Transaction/TransactionContainer';
+import SearchBar from '../../../components/Home/SearchBar';
 
 const data = [
   {
@@ -59,8 +59,7 @@ const data = [
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 20,
-    marginVertical: 20,
+    padding: 10,
   },
   searchbar: {
     backgroundColor: 'white',
@@ -70,13 +69,7 @@ const styles = StyleSheet.create({
 export default function TransactionScreen() {
   return (
     <View style={styles.container}>
-      <Searchbar
-        style={styles.searchbar}
-        placeholder="Mau cari apa?"
-        theme={{
-          roundness: 2,
-        }}
-      />
+      <SearchBar />
 
       <GestureHandlerRootView>
         <FlatList
