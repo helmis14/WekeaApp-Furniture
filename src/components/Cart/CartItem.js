@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
 import { IconButton, List } from 'react-native-paper';
 import GlobalStyles from '../../styles/GlobalStyles';
+import Typography from '../Global/Typography';
 
 const styles = StyleSheet.create({
   cartItem: {
@@ -54,13 +55,15 @@ function CartItem({ item, index, data, setData }) {
         <View style={styles.cartItemLeft}>
           <Image source={{ uri: item.image }} style={styles.cartItemImg} />
           <View>
-            <Text style={GlobalStyles.mediumFont}>{item.name}</Text>
-            <Text style={GlobalStyles.regularFont}>
+            <Typography weight="medium" size="large">
+              {item.name}
+            </Typography>
+            <Typography weight="normal" size="medium">
               {new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
               }).format(item.price)}
-            </Text>
+            </Typography>
           </View>
         </View>
       )}
@@ -72,7 +75,9 @@ function CartItem({ item, index, data, setData }) {
               size={14}
               onPress={() => quantityHandler('increment')}
             />
-            <Text>{item.quantity}</Text>
+            <Typography weight="medium" size="large">
+              {item.quantity}
+            </Typography>
             <IconButton
               icon="minus"
               size={14}

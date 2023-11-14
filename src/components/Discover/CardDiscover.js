@@ -1,7 +1,8 @@
-import { View, Text, Linking, Platform } from 'react-native';
+import { View, Linking, Platform } from 'react-native';
 import React from 'react';
 import { Card, IconButton } from 'react-native-paper';
 import { Ionicons } from 'react-native-vector-icons';
+import Typography from '../Global/Typography';
 
 export default function CardDiscover({ item }) {
   return (
@@ -26,15 +27,12 @@ export default function CardDiscover({ item }) {
         }}
       >
         <View>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: '500',
-            }}
-          >
+          <Typography weight="bold" size="large">
             {item.title}
-          </Text>
-          <Text>{item.address}</Text>
+          </Typography>
+          <Typography weight="normal" size="medium">
+            {item.address}
+          </Typography>
         </View>
         <IconButton
           mode="outlined"

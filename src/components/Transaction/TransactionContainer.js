@@ -3,6 +3,7 @@ import React from 'react';
 import { Divider } from 'react-native-paper';
 import Badge from '../Global/Badge';
 import Button from '../Global/Button';
+import Typography from '../Global/Typography';
 import TransactionCard from './TransactionCard';
 
 const styles = StyleSheet.create({
@@ -67,7 +68,9 @@ export default function TransactionContainer({ data }) {
   return (
     <View style={styles.transactionContainer}>
       <View style={styles.transactionHeader}>
-        <Text style={styles.transactionDate}>{data.date}</Text>
+        <Typography weight="normal" size="medium">
+          {data?.date}
+        </Typography>
         <Badge label="Sedang Dikirim" variant="success" mode="contained" />
       </View>
 

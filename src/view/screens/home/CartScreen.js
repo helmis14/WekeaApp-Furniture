@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import SwipableCart from '../../../components/Cart/SwipableCart';
 import Container from '../../../components/Global/Container';
+import Typography from '../../../components/Global/Typography';
 
 const styles = StyleSheet.create({
   cartItem: {
@@ -105,13 +106,9 @@ export default function CartScreen() {
 
   return (
     <Container>
-      <Text
-        style={{
-          ...GlobalStyles.largeFont,
-        }}
-      >
+      <Typography size="large" weight="bold">
         Cart
-      </Text>
+      </Typography>
 
       <GestureHandlerRootView>
         <FlatList data={data} renderItem={renderItem} />

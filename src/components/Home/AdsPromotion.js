@@ -1,12 +1,6 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Pressable,
-  Image,
-  StyleSheet,
-} from 'react-native';
+import { View, FlatList, Pressable, Image, StyleSheet } from 'react-native';
 import React from 'react';
+import Typography from '../Global/Typography';
 
 const adsAsset = require('../../../assets/ads2.jpg');
 
@@ -29,18 +23,14 @@ const styles = StyleSheet.create({
 export default function AdsPromotion() {
   return (
     <View>
-      <Text
-        style={{
-          fontSize: 18,
-          fontWeight: 'bold',
-        }}
-      >
+      <Typography size="large" weight="bold">
         Promosi Minggu Ini
-      </Text>
+      </Typography>
       <FlatList
         style={{
           marginTop: 5,
         }}
+        on
         numColumns={2}
         data={Array(4)}
         renderItem={() => (

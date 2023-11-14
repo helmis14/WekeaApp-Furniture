@@ -1,18 +1,14 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import React from 'react';
 import CardProduct from '../Global/CardProduct';
+import Typography from '../Global/Typography';
 
 export default function Popular() {
   return (
     <View>
-      <Text
-        style={{
-          fontSize: 18,
-          fontWeight: 'bold',
-        }}
-      >
+      <Typography size="large" weight="bold">
         Popular
-      </Text>
+      </Typography>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

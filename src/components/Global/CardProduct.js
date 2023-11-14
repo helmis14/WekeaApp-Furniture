@@ -1,6 +1,7 @@
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import { Card } from 'react-native-paper';
+import Typography from './Typography';
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -29,8 +30,12 @@ export default function CardProduct() {
           padding: 10,
         }}
       >
-        <Text style={styles.cardTextLabel}>Sofa</Text>
-        <Text>Rp. 1000.000</Text>
+        <Typography size="medium" weight="bold">
+          Furniture
+        </Typography>
+        <Typography size="small" weight="medium">
+          Rp. 1000.000
+        </Typography>
       </Card.Content>
     </Card>
   );
