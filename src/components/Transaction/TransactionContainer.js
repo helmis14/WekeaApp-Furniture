@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Divider } from 'react-native-paper';
 import Badge from '../Global/Badge';
+import ButtonWithIcon from '../Global/ButtonWithIcon';
 import Typography from '../Global/Typography';
 import TransactionCard from './TransactionCard';
-import ButtonWithIcon from '../Global/ButtonWithIcon';
 
 const styles = StyleSheet.create({
   container: {
