@@ -1,13 +1,12 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React, { useMemo } from 'react';
-import GlobalStyles from '../../../styles/GlobalStyles';
 import { FlatList } from 'react-native-gesture-handler';
-import { Button } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import SwipableCart from '../../../components/Cart/SwipableCart';
 import Container from '../../../components/Global/Container';
 import Typography from '../../../components/Global/Typography';
+import SimpleButton from '../../../components/Global/SimpleButton';
 
 const styles = StyleSheet.create({
   cartItem: {
@@ -115,13 +114,20 @@ export default function CartScreen() {
       </GestureHandlerRootView>
 
       <View style={styles.checkoutBtnContainer}>
-        <Button style={styles.checkoutButton} mode="contained">
-          Checkout&nbsp;
-          {new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-          }).format(totalPrice)}
-        </Button>
+        <SimpleButton
+          variant="primary"
+          size="sm"
+          round="lg"
+          style={{ marginBottom: 5 }}
+        >
+          <Typography size="normal" color="white" weight="bold">
+            Checkout&nbsp;
+            {new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+            }).format(totalPrice)}
+          </Typography>
+        </SimpleButton>
       </View>
     </Container>
   );

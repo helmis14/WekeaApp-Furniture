@@ -2,9 +2,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { Divider } from 'react-native-paper';
 import Badge from '../Global/Badge';
-import Button from '../Global/Button';
 import Typography from '../Global/Typography';
 import TransactionCard from './TransactionCard';
+import ButtonWithIcon from '../Global/ButtonWithIcon';
 
 const styles = StyleSheet.create({
   container: {
@@ -79,7 +79,7 @@ export default function TransactionContainer({ data }) {
       ))}
       <Divider />
       <View style={styles.transactionFooter}>
-        <Button
+        <ButtonWithIcon
           icon="truck"
           label="Lacak"
           mode="outlined"

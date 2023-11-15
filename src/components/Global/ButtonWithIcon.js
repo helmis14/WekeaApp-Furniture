@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Chip } from 'react-native-paper';
 
-export default function Button({
+export default function ButtonWithIcon({
   icon,
   label,
   mode,
