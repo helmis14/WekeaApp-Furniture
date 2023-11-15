@@ -30,14 +30,6 @@ const Typography = styled.Text`
   }};
 
   text-align: ${(props) => (props.align ? props.align : 'left')};
-  line-height: ${(props) => {
-    switch (props.variant) {
-      case 'title':
-        return '28px';
-      default:
-        return '20px';
-    }
-  }};
 
   font-weight: ${(props) => {
     switch (props.weight) {
@@ -54,6 +46,24 @@ const Typography = styled.Text`
         return '300';
       default:
         return '400';
+    }
+  }};
+
+  font_family: ${(props) => {
+    switch (props.weight) {
+      case 'title':
+        return 'Nunito_700Bold';
+
+      case 'bold':
+        return 'Nunito_600SemiBold';
+      case 'medium':
+        return 'Nunito_500Medium';
+      case 'normal':
+        return 'Nunito_400Regular';
+      case 'light':
+        return 'Nunito_300Light';
+      default:
+        return 'Nunito_400Regular';
     }
   }};
 `;
