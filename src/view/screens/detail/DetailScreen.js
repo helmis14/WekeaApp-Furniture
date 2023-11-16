@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Animated, Dimensions, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { Ionicons } from "react-native-vector-icons";
@@ -146,15 +147,49 @@ const CheckoutButton = styled.TouchableOpacity`
   flex: 1;
 `;
 
+function BulletIndicator({ data, bulletInterpolate }) {
+  return (
+    <BulletCardWrapper>
+      {data?.map((_, index) => (
+      <BulletCardItem style={
+        {
+          opacity : bulletInterpolate[index].opacity,
+        }
+      }
+        />
+      ))}
+    </BulletCardWrapper>
+  );
+}
+
 function DetailScreen({ navigation }) {
 
-  const {width} = Dimensions.get("window")
+  const {width} = Dimensions.get("window");
+  const [scrollIndex, setScrollIndex] = useState(0);
+  const bulletScrollView = new Animated.Value(0);
+  const bulletInterpolate = DUMMY_DATA.images?.map((_, index) => {
+    const opacity = bulletScrollView.interpolate({
+      inputRange: scrollIndex === index ? [0,1,2] : [0,1,2],
+      outputRange: scrollIndex === index ? [1,0,1] : [0.5, 1, 0.5],
+      extrapolate: 'clamp', 
+    });
+
+    return { opacity };
+  });
+
   return (
     <View>
       <BackButton name="arrow-back" size={30} color="#eee" onPress={() => navigation.goBack()} />
-      <Carousel loop={false} width={width} height={400} data={DUMMY_DATA.images} renderItem={({ item }) => {
-      return <ImageItem source={item} />
-    }} />
+      <Carousel 
+        loop={false} 
+        width={width} 
+        height={400} 
+        data={DUMMY_DATA.images} 
+        renderItem={({ item }) => <ImageItem source={item} />} 
+        onSnapToItem={(index) => setScrollIndex(index)}
+      />
+
+      <BulletIndicator data={DUMMY_DATA.images} bulletInterpolate={bulletInterpolate} />
     </View>
   );
 }
