@@ -1,5 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
 import Typography from './Typography';
 
@@ -22,8 +23,15 @@ const styles = StyleSheet.create({
 const furnitureJpg = require('../../../assets/furniture.jpeg');
 
 export default function CardProduct() {
+
+  const navigation  = useNavigation();
   return (
-    <Card style={styles.cardContainer}>
+    <Card 
+      style={styles.cardContainer} 
+      onPress={() =>{
+        navigation.navigate('Details');
+      }}
+    >
       <Card.Cover style={styles.cardCoverImg} source={furnitureJpg} />
       <Card.Content
         style={{
