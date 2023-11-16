@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Animated, Dimensions, View } from "react-native";
+import { Animated, Dimensions, ScrollView, View } from "react-native";
+import { Divider } from "react-native-paper";
 import Carousel from "react-native-reanimated-carousel";
 import { Ionicons } from "react-native-vector-icons";
 import styled from "styled-components/native";
+import Container from "../../../components/Global/Container";
+import Typography from "../../../components/Global/Typography";
+import priceFormater from "../../../utils/helpers/priceFormatting";
 
 const DUMMY_DATA = {
   _id: '64be9083e5793f47e99454ae',
@@ -178,7 +182,8 @@ function DetailScreen({ navigation }) {
   });
 
   return (
-    <View>
+    <ScrollView>
+      <View>
       <BackButton name="arrow-back" size={30} color="#eee" onPress={() => navigation.goBack()} />
       <Carousel 
         loop={false} 
@@ -188,9 +193,66 @@ function DetailScreen({ navigation }) {
         renderItem={({ item }) => <ImageItem source={item} />} 
         onSnapToItem={(index) => setScrollIndex(index)}
       />
-
       <BulletIndicator data={DUMMY_DATA.images} bulletInterpolate={bulletInterpolate} />
     </View>
+
+    <Container>
+      <VStack gap="5px">
+
+
+        <Typography size="xlarge" weight="title">
+          {DUMMY_DATA.name}
+        </Typography>
+
+        <HStack gap="15px">
+          <Typography color="secondary" size="large">
+            {DUMMY_DATA.averageRating}
+          </Typography>
+
+          <HStack gap="5px">
+            {Array.from({length: 5}).map((_, index) => {
+                const starColor = index < DUMMY_DATA.averageRating ? '#FFc700' : '#6c757d';
+
+                return <Ionicons name="star" size={20} color={starColor} />;
+              })}
+          </HStack>
+          <Typography color="secondary" size="large" weight="light">
+            ({DUMMY_DATA.countReview} 
+            {' '}
+            reviews)
+          </Typography>
+        </HStack>
+
+        <Divider/>
+
+          <HStack gap="5px" align="center" justify="space-between">
+            <VStack>
+              {DUMMY_DATA?.isDiscount && (
+                <Typography size="large" color="secondary" lineThrough>
+                  {priceFormater(DUMMY_DATA.price)}
+                </Typography>
+              )}
+              <Typography size="xlarge" weight="bold">
+                {priceFormater(
+                  DUMMY_DATA?.isDiscount 
+                  ? DUMMY_DATA.discountPrice 
+                  : DUMMY_DATA.price,
+                )}
+              </Typography>
+            </VStack>
+            {DUMMY_DATA?.isDiscount && (
+              <DiscountWrapper>
+                  <Typography color="white">
+                    -
+                    {DUMMY_DATA.discountPercentage}
+                    %
+                  </Typography>
+              </DiscountWrapper>
+            )}
+          </HStack>
+        </VStack>
+      </Container>
+   </ScrollView>
   );
 }
 

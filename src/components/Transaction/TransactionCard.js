@@ -1,5 +1,6 @@
-import { View, StyleSheet, Image } from 'react-native';
 import React from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+import priceFormater from '../../utils/helpers/priceFormatting';
 import Typography from '../Global/Typography';
 
 const styles = StyleSheet.create({
@@ -52,10 +53,7 @@ export default function TransactionCard({ item }) {
         </View>
       </View>
       <Typography weight="bold" size="medium">
-        {new Intl.NumberFormat('id-ID', {
-          style: 'currency',
-          currency: 'IDR',
-        }).format(item.price)}
+        {priceFormater(item.price)}
       </Typography>
     </View>
   );

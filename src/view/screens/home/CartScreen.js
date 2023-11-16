@@ -5,6 +5,7 @@ import SwipableCart from '../../../components/Cart/SwipableCart';
 import Container from '../../../components/Global/Container';
 import SimpleButton from '../../../components/Global/SimpleButton';
 import Typography from '../../../components/Global/Typography';
+import priceFormater from '../../../utils/helpers/priceFormatting';
 
 const styles = StyleSheet.create({
   checkoutBtnContainer: {
@@ -80,10 +81,7 @@ export default function CartScreen() {
         >
           <Typography size="normal" color="white" weight="bold">
             Checkout&nbsp;
-            {new Intl.NumberFormat('id-ID', {
-              style: 'currency',
-              currency: 'IDR',
-            }).format(totalPrice)}
+            {priceFormater(totalPrice)}
           </Typography>
         </SimpleButton>
       </View>

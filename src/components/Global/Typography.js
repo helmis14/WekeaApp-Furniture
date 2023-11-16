@@ -9,6 +9,8 @@ const Typography = styled.Text`
         return '16px';
       case 'large':
         return '20px';
+      case 'xlarge':
+        return '24px';
       case 'title':
         return '32px';
       default:
@@ -20,6 +22,8 @@ const Typography = styled.Text`
     switch (props.color) {
       case 'primary':
         return '#007bff';
+      case 'secondary':
+        return '#6c757d';
       case 'text':
         return '#0C0D34';
       case 'white':
@@ -66,6 +70,8 @@ const Typography = styled.Text`
         return 'Nunito_400Regular';
     }
   }};
+
+  ${(props) => props.lineThrough && 'text-decoration: line-through'};
 `;
 
 export default Typography;
