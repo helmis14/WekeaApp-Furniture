@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Animated, Dimensions, ScrollView, View } from 'react-native';
-import { Card, DataTable, Divider } from 'react-native-paper';
+import { Card, DataTable, Divider, List } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import { Ionicons } from 'react-native-vector-icons';
 import styled from 'styled-components/native';
@@ -32,7 +32,7 @@ const DUMMY_DATA = {
       name: 'John',
       image: 'https://i.pravatar.cc/150?img=68',
       rating: 4,
-      review: 'Ok',
+      review: 'Lorem ipsum dolor sit amet consectetur',
     },
     {
       id: 2,
@@ -200,7 +200,6 @@ function DetailScreen({ navigation }) {
           bulletInterpolate={bulletInterpolate}
         />
       </View>
-
       <Container>
         <VStack gap="10px">
           <Typography size="xlarge" weight="title">
@@ -316,6 +315,42 @@ function DetailScreen({ navigation }) {
                 </Card>
               ))}
             </ScrollView>
+          </VStack>
+
+          <VStack gap="5px">
+            <HStack justify="space-between" align="center">
+              <Typography size="large" weight="bold">
+                Ulasan
+              </Typography>
+            </HStack>
+
+            <List.Section>
+              {DUMMY_DATA.reviews?.map((item) => (
+                <List.Item
+                  style={{
+                    borderRadius: 10,
+                    padding: 10,
+                    marginVertical: 5,
+                    borderWidth: 0.4,
+                  }}
+                  title={item.name}
+                  description={item.review}
+                  left={() => <List.Image source={{ uri: item.image }} />}
+                  right={() => (
+                    <HStack gap="5px">
+                      {Array.from({ length: 5 }).map((_, index) => {
+                        const starColor =
+                          index < item.rating ? '#FFc700' : '#6c757d';
+
+                        return (
+                          <Ionicons name="star" size={20} color={starColor} />
+                        );
+                      })}
+                    </HStack>
+                  )}
+                />
+              ))}
+            </List.Section>
           </VStack>
         </VStack>
       </Container>
