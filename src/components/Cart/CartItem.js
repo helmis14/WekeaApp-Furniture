@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { IconButton, List } from 'react-native-paper';
-import priceFormater from '../../utils/helpers/priceFormatting';
+import priceFormater from '../../utils/helpers/priceFormater';
 import Typography from '../Global/Typography';
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ import SwipableCart from '../../../components/Cart/SwipableCart';
 import Container from '../../../components/Global/Container';
 import SimpleButton from '../../../components/Global/SimpleButton';
 import Typography from '../../../components/Global/Typography';
-import priceFormater from '../../../utils/helpers/priceFormatting';
+import priceFormater from '../../../utils/helpers/priceFormater';
 
 const styles = StyleSheet.create({
   checkoutBtnContainer: {
