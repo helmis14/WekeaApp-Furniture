@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Animated, Dimensions, ScrollView, View } from 'react-native';
-import { Card, DataTable, Divider, List } from 'react-native-paper';
+import { Card, DataTable, Divider, IconButton, List } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import { Ionicons } from 'react-native-vector-icons';
 import styled from 'styled-components/native';
@@ -179,182 +179,195 @@ function DetailScreen({ navigation }) {
   });
 
   return (
-    <ScrollView>
-      <View>
-        <BackButton
-          name="arrow-back"
-          size={30}
-          color="#eee"
-          onPress={() => navigation.goBack()}
-        />
-        <Carousel
-          loop={false}
-          width={width}
-          height={400}
-          data={DUMMY_DATA.images}
-          renderItem={({ item }) => <ImageItem source={item} />}
-          onSnapToItem={(index) => setScrollIndex(index)}
-        />
-        <BulletIndicator
-          data={DUMMY_DATA.images}
-          bulletInterpolate={bulletInterpolate}
-        />
-      </View>
-      <Container>
-        <VStack gap="10px">
-          <Typography size="xlarge" weight="title">
-            {DUMMY_DATA.name}
-          </Typography>
-
-          <HStack gap="15px">
-            <Typography color="secondary" size="large">
-              {DUMMY_DATA.averageRating}
-            </Typography>
-
-            <HStack gap="5px">
-              {Array.from({ length: 5 }).map((_, index) => {
-                const starColor =
-                  index < DUMMY_DATA.averageRating ? '#FFc700' : '#6c757d';
-
-                return <Ionicons name="star" size={20} color={starColor} />;
-              })}
-            </HStack>
-            <Typography color="secondary" size="large" weight="light">
-              ({DUMMY_DATA.countReview} reviews)
-            </Typography>
-          </HStack>
-
-          <HStack gap="5px" align="center" justify="space-between">
-            <VStack>
-              {DUMMY_DATA?.isDiscount && (
-                <Typography size="large" color="secondary" lineThrough>
-                  {priceFormater(DUMMY_DATA.price)}
-                </Typography>
-              )}
-              <Typography size="xlarge" weight="bold">
-                {priceFormater(
-                  DUMMY_DATA?.isDiscount
-                    ? DUMMY_DATA.discountPrice
-                    : DUMMY_DATA.price
-                )}
-              </Typography>
-            </VStack>
-            {DUMMY_DATA?.isDiscount && (
-              <DiscountWrapper>
-                <Typography color="white">
-                  -{DUMMY_DATA.discountPercentage}%
-                </Typography>
-              </DiscountWrapper>
-            )}
-          </HStack>
-
-          <Divider />
-
+    <>
+      <ScrollView>
+        <View>
+          <BackButton
+            name="arrow-back"
+            size={30}
+            color="#eee"
+            onPress={() => navigation.goBack()}
+          />
+          <Carousel
+            loop={false}
+            width={width}
+            height={400}
+            data={DUMMY_DATA.images}
+            renderItem={({ item }) => <ImageItem source={item} />}
+            onSnapToItem={(index) => setScrollIndex(index)}
+          />
+          <BulletIndicator
+            data={DUMMY_DATA.images}
+            bulletInterpolate={bulletInterpolate}
+          />
+        </View>
+        <Container>
           <VStack gap="10px">
-            <Typography size="large" weight="medium">
-              Description & Specification
-            </Typography>
-            <Typography size="medium" weight="light" color="secondary">
-              {DUMMY_DATA.description}
+            <Typography size="xlarge" weight="title">
+              {DUMMY_DATA.name}
             </Typography>
 
-            <DataTable>
-              <DataTable.Header>
-                <DataTable.Title>
-                  <Typography size="medium" weight="bold" color="secondary">
-                    Specification
+            <HStack gap="15px">
+              <Typography color="secondary" size="large">
+                {DUMMY_DATA.averageRating}
+              </Typography>
+
+              <HStack gap="5px">
+                {Array.from({ length: 5 }).map((_, index) => {
+                  const starColor =
+                    index < DUMMY_DATA.averageRating ? '#FFc700' : '#6c757d';
+
+                  return <Ionicons name="star" size={20} color={starColor} />;
+                })}
+              </HStack>
+              <Typography color="secondary" size="large" weight="light">
+                ({DUMMY_DATA.countReview} reviews)
+              </Typography>
+            </HStack>
+
+            <HStack gap="5px" align="center" justify="space-between">
+              <VStack>
+                {DUMMY_DATA?.isDiscount && (
+                  <Typography size="large" color="secondary" lineThrough>
+                    {priceFormater(DUMMY_DATA.price)}
                   </Typography>
-                </DataTable.Title>
-              </DataTable.Header>
+                )}
+                <Typography size="xlarge" weight="bold">
+                  {priceFormater(
+                    DUMMY_DATA?.isDiscount
+                      ? DUMMY_DATA.discountPrice
+                      : DUMMY_DATA.price
+                  )}
+                </Typography>
+              </VStack>
+              {DUMMY_DATA?.isDiscount && (
+                <DiscountWrapper>
+                  <Typography color="white">
+                    -{DUMMY_DATA.discountPercentage}%
+                  </Typography>
+                </DiscountWrapper>
+              )}
+            </HStack>
 
-              {DUMMY_DATA.specifications?.map((item) => (
-                <DataTable.Row>
-                  <DataTable.Cell>{item?.title}</DataTable.Cell>
-                  <DataTable.Cell>{item?.description}</DataTable.Cell>
-                </DataTable.Row>
-              ))}
-            </DataTable>
-          </VStack>
+            <Divider />
 
-          <VStack gap="5px">
-            <Typography size="large" weight="bold">
-              Location & Stock
-            </Typography>
+            <VStack gap="10px">
+              <Typography size="large" weight="medium">
+                Description & Specification
+              </Typography>
+              <Typography size="medium" weight="light" color="secondary">
+                {DUMMY_DATA.description}
+              </Typography>
 
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{
-                paddingVertical: 10,
-              }}
-            >
-              {DUMMY_DATA.locations?.map((item) => (
-                <Card
-                  style={{
-                    width: 200,
-                    overflow: 'hidden',
-                    marginRight: 10,
-                  }}
-                >
-                  <Card.Cover source={item.image} />
-                  <Card.Content
+              <DataTable>
+                <DataTable.Header>
+                  <DataTable.Title>
+                    <Typography size="medium" weight="bold" color="secondary">
+                      Specification
+                    </Typography>
+                  </DataTable.Title>
+                </DataTable.Header>
+
+                {DUMMY_DATA.specifications?.map((item) => (
+                  <DataTable.Row>
+                    <DataTable.Cell>{item?.title}</DataTable.Cell>
+                    <DataTable.Cell>{item?.description}</DataTable.Cell>
+                  </DataTable.Row>
+                ))}
+              </DataTable>
+            </VStack>
+
+            <VStack gap="5px">
+              <Typography size="large" weight="bold">
+                Location & Stock
+              </Typography>
+
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={{
+                  paddingVertical: 10,
+                }}
+              >
+                {DUMMY_DATA.locations?.map((item) => (
+                  <Card
                     style={{
-                      padding: 10,
+                      width: 200,
+                      overflow: 'hidden',
+                      marginRight: 10,
                     }}
                   >
-                    <Typography size="large" weight="bold">
-                      {item.name}
-                    </Typography>
-                    <Typography size="medium" weight="light">
-                      {item.location}
-                    </Typography>
-                    <Typography size="medium" weight="light">
-                      Stock:&nbsp;{item.stock}
-                    </Typography>
-                  </Card.Content>
-                </Card>
-              ))}
-            </ScrollView>
+                    <Card.Cover source={item.image} />
+                    <Card.Content
+                      style={{
+                        padding: 10,
+                      }}
+                    >
+                      <Typography size="large" weight="bold">
+                        {item.name}
+                      </Typography>
+                      <Typography size="medium" weight="light">
+                        {item.location}
+                      </Typography>
+                      <Typography size="medium" weight="light">
+                        Stock:&nbsp;{item.stock}
+                      </Typography>
+                    </Card.Content>
+                  </Card>
+                ))}
+              </ScrollView>
+            </VStack>
+
+            <VStack gap="5px">
+              <HStack justify="space-between" align="center">
+                <Typography size="large" weight="bold">
+                  Ulasan
+                </Typography>
+              </HStack>
+
+              <List.Section>
+                {DUMMY_DATA.reviews?.map((item) => (
+                  <List.Item
+                    style={{
+                      borderRadius: 10,
+                      padding: 10,
+                      marginVertical: 5,
+                      borderWidth: 0.4,
+                    }}
+                    title={item.name}
+                    description={item.review}
+                    left={() => <List.Image source={{ uri: item.image }} />}
+                    right={() => (
+                      <HStack gap="5px">
+                        {Array.from({ length: 5 }).map((_, index) => {
+                          const starColor =
+                            index < item.rating ? '#FFc700' : '#6c757d';
+
+                          return (
+                            <Ionicons name="star" size={20} color={starColor} />
+                          );
+                        })}
+                      </HStack>
+                    )}
+                  />
+                ))}
+              </List.Section>
+            </VStack>
           </VStack>
+        </Container>
+      </ScrollView>
 
-          <VStack gap="5px">
-            <HStack justify="space-between" align="center">
-              <Typography size="large" weight="bold">
-                Ulasan
-              </Typography>
-            </HStack>
-
-            <List.Section>
-              {DUMMY_DATA.reviews?.map((item) => (
-                <List.Item
-                  style={{
-                    borderRadius: 10,
-                    padding: 10,
-                    marginVertical: 5,
-                    borderWidth: 0.4,
-                  }}
-                  title={item.name}
-                  description={item.review}
-                  left={() => <List.Image source={{ uri: item.image }} />}
-                  right={() => (
-                    <HStack gap="5px">
-                      {Array.from({ length: 5 }).map((_, index) => {
-                        const starColor =
-                          index < item.rating ? '#FFc700' : '#6c757d';
-
-                        return (
-                          <Ionicons name="star" size={20} color={starColor} />
-                        );
-                      })}
-                    </HStack>
-                  )}
-                />
-              ))}
-            </List.Section>
-          </VStack>
-        </VStack>
-      </Container>
-    </ScrollView>
+      <StickyBottom>
+        <HStack gap="10px" align="center" justify="space-between">
+          <IconButton icon="cart" iconColor="#6c7576" size={25} />
+          <CheckoutButton>
+            <Typography color="white" weight="bold">
+              Beli
+            </Typography>
+          </CheckoutButton>
+        </HStack>
+      </StickyBottom>
+    </>
   );
 }
 
