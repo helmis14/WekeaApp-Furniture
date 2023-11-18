@@ -1,16 +1,17 @@
+import VStack from 'components/Global/VStack';
+import DUMMY_DATA from 'const/data/DUMMY_DATA';
 import { ScrollView } from 'react-native';
 import { Divider } from 'react-native-paper';
-import CarouselSection from '../../../components/Detail/CarouselSection';
-import DescriptionSection from '../../../components/Detail/DescriptionSection';
-import LocationSection from '../../../components/Detail/LocationSection';
-import PriceSection from '../../../components/Detail/PriceSection';
-import RatingSection from '../../../components/Detail/RatingSection';
-import ReviewSection from '../../../components/Detail/ReviewSection';
-import StickyBottomSection from '../../../components/Detail/StickyBottomSection';
-import TitleSection from '../../../components/Detail/TitleSection';
-import Container from '../../../components/Global/Container';
-import VStack from '../../../components/Global/VStack';
-import DUMMY_DATA from '../../../const/data/DUMMY_DATA';
+
+import CarouselSection from 'components/Detail/CarouselSection';
+import DescriptionSection from 'components/Detail/DescriptionSection';
+import LocationSection from 'components/Detail/LocationSection';
+import PriceSection from 'components/Detail/PriceSection';
+import RatingSection from 'components/Detail/RatingSection';
+import ReviewSection from 'components/Detail/ReviewSection';
+import StickyBottomSection from 'components/Detail/StickyBottomSection';
+import TitleSection from 'components/Detail/TitleSection';
+import Container from 'components/Global/Container';
 
 function DetailScreen({ navigation }) {
   return (

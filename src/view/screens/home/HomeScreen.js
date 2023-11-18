@@ -1,13 +1,13 @@
-import React from 'react';
 import { ScrollView } from 'react-native';
 
-import SearchBar from '../../../components/Home/SearchBar';
-import CustomCarousel from '../../../components/Home/CustomCarousel';
-import Category from '../../../components/Home/Category';
-import AdsPromotion from '../../../components/Home/AdsPromotion';
-import Popular from '../../../components/Home/Popular';
-import Container from '../../../components/Global/Container';
+import Container from 'components/Global/Container';
+import AdsPromotion from 'components/Home/AdsPromotion';
+import Category from 'components/Home/Category';
+import CustomCarousel from 'components/Home/CustomCarousel';
+import Popular from 'components/Home/Popular';
+import SearchBar from 'components/Home/SearchBar';
 
+// eslint-disable-next-line no-unused-vars
 export default function HomeScreen({ navigation }) {
   return (
     <ScrollView>

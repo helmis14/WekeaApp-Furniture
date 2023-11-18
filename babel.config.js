@@ -11,7 +11,17 @@ module.exports = function (api) {
       [
         'module-resolver',
         {
+          root: ['./src'],
           extensions: ['.tsx', '.ts', '.js', '.json'],
+          alias: {
+            '@components/*': './src/components/*',
+            '@assets/*': './assets/*',
+            '@utils/*': './src/utils/*',
+            '@constants/*': './src/constants/*',
+            '@views/*': './src/views/*',
+            '@styles/*': './src/styles/*',
+            '@routes/*': './src/routes/*',
+          },
         },
       ],
       'react-native-paper/babel',

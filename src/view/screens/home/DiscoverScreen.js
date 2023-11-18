@@ -1,8 +1,8 @@
 import { View, StyleSheet, useWindowDimensions, Animated } from 'react-native';
 import React, { useRef, useState } from 'react';
-import CarouselDiscover from '../../../components/Discover/CarouselDiscover';
-import TogglerButton from '../../../components/Discover/TogglerButton';
-import MapComponent from '../../../components/Discover/MapComponent';
+import CarouselDiscover from 'components/Discover/CarouselDiscover';
+import TogglerButton from 'components/Discover/TogglerButton';
+import MapComponent from 'components/Discover/MapComponent';
 
 const storeMarker = require('../../../../assets/store.png');
 
@@ -51,6 +51,7 @@ export default function DiscoverScreen() {
   ];
 
   const onPressMarker = (mapData) => {
+    // eslint-disable-next-line no-underscore-dangle
     const markerId = mapData._targetInst.return.key;
 
     scrollCarouselRef.current.scrollTo({

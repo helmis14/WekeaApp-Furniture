@@ -23,12 +23,11 @@ const styles = StyleSheet.create({
 const furnitureJpg = require('../../../assets/furniture.jpeg');
 
 export default function CardProduct() {
-
-  const navigation  = useNavigation();
+  const navigation = useNavigation();
   return (
-    <Card 
-      style={styles.cardContainer} 
-      onPress={() =>{
+    <Card
+      style={styles.cardContainer}
+      onPress={() => {
         navigation.navigate('Details');
       }}
     >

@@ -1,7 +1,6 @@
-import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { IconButton, List } from 'react-native-paper';
-import priceFormater from '../../utils/helpers/priceFormater';
+import priceFormater from 'utils/helpers/priceFormater';
 import Typography from '../Global/Typography';
 
 const styles = StyleSheet.create({
@@ -44,7 +43,7 @@ function CartItem({ item, index, data, setData }) {
         }
 
         return prev;
-      })
+      }),
     );
   };
 
@@ -64,27 +63,25 @@ function CartItem({ item, index, data, setData }) {
           </View>
         </View>
       )}
-      right={() => {
-        return (
-          <View style={styles.cartItemRight}>
-            <IconButton
-              icon="plus"
-              size={14}
-              onPress={() => quantityHandler('increment')}
-            />
-            <Typography weight="medium" size="large">
-              {item.quantity}
-            </Typography>
-            <IconButton
-              icon="minus"
-              size={14}
-              disabled={data[index].quantity === 1}
-              onPress={() => quantityHandler('decrement')}
-            />
-          </View>
-        );
-      }}
-    ></List.Item>
+      right={() => (
+        <View style={styles.cartItemRight}>
+          <IconButton
+            icon="plus"
+            size={14}
+            onPress={() => quantityHandler('increment')}
+          />
+          <Typography weight="medium" size="large">
+            {item.quantity}
+          </Typography>
+          <IconButton
+            icon="minus"
+            size={14}
+            disabled={data[index].quantity === 1}
+            onPress={() => quantityHandler('decrement')}
+          />
+        </View>
+      )}
+    />
   );
 }
 

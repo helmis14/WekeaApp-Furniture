@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from 'react';
+import SwipableCart from 'components/Cart/SwipableCart';
+import Container from 'components/Global/Container';
+import SimpleButton from 'components/Global/SimpleButton';
+import Typography from 'components/Global/Typography';
+import { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
-import SwipableCart from '../../../components/Cart/SwipableCart';
-import Container from '../../../components/Global/Container';
-import SimpleButton from '../../../components/Global/SimpleButton';
-import Typography from '../../../components/Global/Typography';
-import priceFormater from '../../../utils/helpers/priceFormater';
+import priceFormater from 'utils/helpers/priceFormater';
 
 const styles = StyleSheet.create({
   checkoutBtnContainer: {
@@ -45,7 +45,7 @@ export default function CartScreen() {
 
   const totalPrice = useMemo(
     () => data.reduce((acc, curr) => acc + curr.price * curr.quantity, 0),
-    [data]
+    [data],
   );
 
   const handleDelete = (id) => {

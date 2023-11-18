@@ -1,6 +1,5 @@
-import React from 'react';
 import styled from 'styled-components/native';
-import priceFormater from '../../utils/helpers/priceFormater';
+import priceFormater from 'utils/helpers/priceFormater';
 import HStack from '../Global/HStack';
 import Typography from '../Global/Typography';
 import VStack from '../Global/VStack';
@@ -29,7 +28,11 @@ export default function PriceSection({ data }) {
       </VStack>
       {data?.isDiscount && (
         <DiscountWrapper>
-          <Typography color="white">-{data.discountPercentage}%</Typography>
+          <Typography color="white">
+            -
+            {data.discountPercentage}
+            %
+          </Typography>
         </DiscountWrapper>
       )}
     </HStack>

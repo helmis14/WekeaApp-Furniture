@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const DUMMY_DATA = {
   _id: '64be9083e5793f47e99454ae',
   name: 'Lorem ipsum dolor sit amet consectetur adipisicing',
@@ -10,6 +11,7 @@ const DUMMY_DATA = {
   categoryId: '64be8a3516b11f521669b279',
   thumbnail: 'SementaraLangsungDi.png',
   images: [
+    // eslint-disable-next-line global-require
     require('../../../assets/furniture.jpeg'),
     require('../../../assets/furniture.jpeg'),
     require('../../../assets/furniture.jpeg'),

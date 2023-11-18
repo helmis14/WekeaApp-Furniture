@@ -1,8 +1,7 @@
-import React from 'react';
+import Container from 'components/Global/Container';
+import SearchBar from 'components/Home/SearchBar';
+import TransactionContainer from 'components/Transaction/TransactionContainer';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
-import Container from '../../../components/Global/Container';
-import SearchBar from '../../../components/Home/SearchBar';
-import TransactionContainer from '../../../components/Transaction/TransactionContainer';
 
 const data = [
   {

@@ -17,6 +17,8 @@
     "import/no-extraneous-dependencies": 0,
     "implicit-arrow-linebreak": 0,
     "react/no-unstable-nested-components": 0,
-    "underscore-dangle": 0,
+    "object-curly-newline": 0,
+    "import/no-unresolved": 0,
+    "react/react-in-jsx-scope": 0
   }
 }
