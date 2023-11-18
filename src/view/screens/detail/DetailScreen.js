@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Animated, Dimensions, ScrollView, View } from 'react-native';
-import { DataTable, Divider } from 'react-native-paper';
+import { Card, DataTable, Divider } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import { Ionicons } from 'react-native-vector-icons';
 import styled from 'styled-components/native';
@@ -225,8 +225,6 @@ function DetailScreen({ navigation }) {
             </Typography>
           </HStack>
 
-          <Divider />
-
           <HStack gap="5px" align="center" justify="space-between">
             <VStack>
               {DUMMY_DATA?.isDiscount && (
@@ -251,8 +249,10 @@ function DetailScreen({ navigation }) {
             )}
           </HStack>
 
-          <VStack gap="5px">
-            <Typography size="large" weight="medium" color="secondary">
+          <Divider />
+
+          <VStack gap="10px">
+            <Typography size="large" weight="medium">
               Description & Specification
             </Typography>
             <Typography size="medium" weight="light" color="secondary">
@@ -275,6 +275,47 @@ function DetailScreen({ navigation }) {
                 </DataTable.Row>
               ))}
             </DataTable>
+          </VStack>
+
+          <VStack gap="5px">
+            <Typography size="large" weight="bold">
+              Location & Stock
+            </Typography>
+
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{
+                paddingVertical: 10,
+              }}
+            >
+              {DUMMY_DATA.locations?.map((item) => (
+                <Card
+                  style={{
+                    width: 200,
+                    overflow: 'hidden',
+                    marginRight: 10,
+                  }}
+                >
+                  <Card.Cover source={item.image} />
+                  <Card.Content
+                    style={{
+                      padding: 10,
+                    }}
+                  >
+                    <Typography size="large" weight="bold">
+                      {item.name}
+                    </Typography>
+                    <Typography size="medium" weight="light">
+                      {item.location}
+                    </Typography>
+                    <Typography size="medium" weight="light">
+                      Stock:&nbsp;{item.stock}
+                    </Typography>
+                  </Card.Content>
+                </Card>
+              ))}
+            </ScrollView>
           </VStack>
         </VStack>
       </Container>
