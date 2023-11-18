@@ -1,10 +1,9 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from 'react-native-vector-icons';
-import HomeScreen from '../view/screens/home/HomeScreen';
-import DiscoverScreen from '../view/screens/home/DiscoverScreen';
-import CartScreen from '../view/screens/home/CartScreen';
-import TransactionScreen from '../view/screens/home/TransactionScreen';
+import CartScreen from 'view/screens/home/CartScreen';
+import DiscoverScreen from 'view/screens/home/DiscoverScreen';
+import HomeScreen from 'view/screens/home/HomeScreen';
+import TransactionScreen from 'view/screens/home/TransactionScreen';
 
 const Tabs = createBottomTabNavigator();
 
