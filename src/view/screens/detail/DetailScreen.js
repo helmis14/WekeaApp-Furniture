@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Animated, Dimensions, ScrollView, View } from "react-native";
-import { Divider } from "react-native-paper";
-import Carousel from "react-native-reanimated-carousel";
-import { Ionicons } from "react-native-vector-icons";
-import styled from "styled-components/native";
-import Container from "../../../components/Global/Container";
-import Typography from "../../../components/Global/Typography";
-import priceFormater from "../../../utils/helpers/priceFormatting";
+import { useState } from 'react';
+import { Animated, Dimensions, ScrollView, View } from 'react-native';
+import { DataTable, Divider } from 'react-native-paper';
+import Carousel from 'react-native-reanimated-carousel';
+import { Ionicons } from 'react-native-vector-icons';
+import styled from 'styled-components/native';
+import Container from '../../../components/Global/Container';
+import Typography from '../../../components/Global/Typography';
+import priceFormater from '../../../utils/helpers/priceFormatting';
 
 const DUMMY_DATA = {
   _id: '64be9083e5793f47e99454ae',
@@ -130,7 +130,6 @@ const DiscountWrapper = styled.View`
   border-radius: 50px;
 `;
 
-
 // Video 47
 const StickyBottom = styled.View`
   position: absolute;
@@ -155,11 +154,10 @@ function BulletIndicator({ data, bulletInterpolate }) {
   return (
     <BulletCardWrapper>
       {data?.map((_, index) => (
-      <BulletCardItem style={
-        {
-          opacity : bulletInterpolate[index].opacity,
-        }
-      }
+        <BulletCardItem
+          style={{
+            opacity: bulletInterpolate[index].opacity,
+          }}
         />
       ))}
     </BulletCardWrapper>
@@ -167,15 +165,14 @@ function BulletIndicator({ data, bulletInterpolate }) {
 }
 
 function DetailScreen({ navigation }) {
-
-  const {width} = Dimensions.get("window");
+  const { width } = Dimensions.get('window');
   const [scrollIndex, setScrollIndex] = useState(0);
   const bulletScrollView = new Animated.Value(0);
   const bulletInterpolate = DUMMY_DATA.images?.map((_, index) => {
     const opacity = bulletScrollView.interpolate({
-      inputRange: scrollIndex === index ? [0,1,2] : [0,1,2],
-      outputRange: scrollIndex === index ? [1,0,1] : [0.5, 1, 0.5],
-      extrapolate: 'clamp', 
+      inputRange: scrollIndex === index ? [0, 1, 2] : [0, 1, 2],
+      outputRange: scrollIndex === index ? [1, 0, 1] : [0.5, 1, 0.5],
+      extrapolate: 'clamp',
     });
 
     return { opacity };
@@ -184,46 +181,51 @@ function DetailScreen({ navigation }) {
   return (
     <ScrollView>
       <View>
-      <BackButton name="arrow-back" size={30} color="#eee" onPress={() => navigation.goBack()} />
-      <Carousel 
-        loop={false} 
-        width={width} 
-        height={400} 
-        data={DUMMY_DATA.images} 
-        renderItem={({ item }) => <ImageItem source={item} />} 
-        onSnapToItem={(index) => setScrollIndex(index)}
-      />
-      <BulletIndicator data={DUMMY_DATA.images} bulletInterpolate={bulletInterpolate} />
-    </View>
+        <BackButton
+          name="arrow-back"
+          size={30}
+          color="#eee"
+          onPress={() => navigation.goBack()}
+        />
+        <Carousel
+          loop={false}
+          width={width}
+          height={400}
+          data={DUMMY_DATA.images}
+          renderItem={({ item }) => <ImageItem source={item} />}
+          onSnapToItem={(index) => setScrollIndex(index)}
+        />
+        <BulletIndicator
+          data={DUMMY_DATA.images}
+          bulletInterpolate={bulletInterpolate}
+        />
+      </View>
 
-    <Container>
-      <VStack gap="5px">
-
-
-        <Typography size="xlarge" weight="title">
-          {DUMMY_DATA.name}
-        </Typography>
-
-        <HStack gap="15px">
-          <Typography color="secondary" size="large">
-            {DUMMY_DATA.averageRating}
+      <Container>
+        <VStack gap="10px">
+          <Typography size="xlarge" weight="title">
+            {DUMMY_DATA.name}
           </Typography>
 
-          <HStack gap="5px">
-            {Array.from({length: 5}).map((_, index) => {
-                const starColor = index < DUMMY_DATA.averageRating ? '#FFc700' : '#6c757d';
+          <HStack gap="15px">
+            <Typography color="secondary" size="large">
+              {DUMMY_DATA.averageRating}
+            </Typography>
+
+            <HStack gap="5px">
+              {Array.from({ length: 5 }).map((_, index) => {
+                const starColor =
+                  index < DUMMY_DATA.averageRating ? '#FFc700' : '#6c757d';
 
                 return <Ionicons name="star" size={20} color={starColor} />;
               })}
+            </HStack>
+            <Typography color="secondary" size="large" weight="light">
+              ({DUMMY_DATA.countReview} reviews)
+            </Typography>
           </HStack>
-          <Typography color="secondary" size="large" weight="light">
-            ({DUMMY_DATA.countReview} 
-            {' '}
-            reviews)
-          </Typography>
-        </HStack>
 
-        <Divider/>
+          <Divider />
 
           <HStack gap="5px" align="center" justify="space-between">
             <VStack>
@@ -234,25 +236,49 @@ function DetailScreen({ navigation }) {
               )}
               <Typography size="xlarge" weight="bold">
                 {priceFormater(
-                  DUMMY_DATA?.isDiscount 
-                  ? DUMMY_DATA.discountPrice 
-                  : DUMMY_DATA.price,
+                  DUMMY_DATA?.isDiscount
+                    ? DUMMY_DATA.discountPrice
+                    : DUMMY_DATA.price
                 )}
               </Typography>
             </VStack>
             {DUMMY_DATA?.isDiscount && (
               <DiscountWrapper>
-                  <Typography color="white">
-                    -
-                    {DUMMY_DATA.discountPercentage}
-                    %
-                  </Typography>
+                <Typography color="white">
+                  -{DUMMY_DATA.discountPercentage}%
+                </Typography>
               </DiscountWrapper>
             )}
           </HStack>
+
+          <VStack gap="5px">
+            <Typography size="large" weight="medium" color="secondary">
+              Description & Specification
+            </Typography>
+            <Typography size="medium" weight="light" color="secondary">
+              {DUMMY_DATA.description}
+            </Typography>
+
+            <DataTable>
+              <DataTable.Header>
+                <DataTable.Title>
+                  <Typography size="medium" weight="bold" color="secondary">
+                    Specification
+                  </Typography>
+                </DataTable.Title>
+              </DataTable.Header>
+
+              {DUMMY_DATA.specifications?.map((item) => (
+                <DataTable.Row>
+                  <DataTable.Cell>{item?.title}</DataTable.Cell>
+                  <DataTable.Cell>{item?.description}</DataTable.Cell>
+                </DataTable.Row>
+              ))}
+            </DataTable>
+          </VStack>
         </VStack>
       </Container>
-   </ScrollView>
+    </ScrollView>
   );
 }
 
