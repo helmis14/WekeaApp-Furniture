@@ -8,7 +8,7 @@ const GlobalStyles = StyleSheet.create({
 
   smallFont: {
     fontSize: 14,
-    fontWeight: '400',
+    fontWeight: '40',
   },
   regularFont: {
     fontSize: 16,
