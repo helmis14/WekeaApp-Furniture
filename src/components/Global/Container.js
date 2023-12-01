@@ -5,6 +5,7 @@ const Container = styled.View`
   padding: 10px;
   gap: 15px;
   padding-bottom: 20%;
+  ${(props) => props.bgColor && `background-color: ${props.bgColor}`};
+  ${(props) => props.color && `color: ${props.color}`};
 `;
-
 export default Container;
